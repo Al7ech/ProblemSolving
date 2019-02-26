@@ -22,25 +22,25 @@ int rec_ans(int h,int w)
     if(h>=H)
         return 1;
 
-    if(map[h][w] == '.' && map[h][w+1] == '.' && map[h+1][w] == '.')
+    if(map[h][w] == '.' && map[h][w+1] == '.' && map[h+1][w] == '.' && w+1<W && h+1<H)
     {
         map[h][w] = map[h][w+1] = map[h+1][w] = '#';
         ret += rec_ans(h,w);
         map[h][w] = map[h][w+1] = map[h+1][w] = '.';
     }
-    if(map[h][w] == '.' && map[h][w+1] == '.' && map[h+1][w+1] == '.')
+    if(map[h][w] == '.' && map[h][w+1] == '.' && map[h+1][w+1] == '.' && w+1<W && h+1<H)
     {
         map[h][w] = map[h][w+1] = map[h+1][w+1] = '#';
         ret += rec_ans(h,w);
         map[h][w] = map[h][w+1] = map[h+1][w+1] = '.';
     }
-    if(map[h][w] == '.' && map[h+1][w] == '.' && map[h+1][w+1] == '.')
+    if(map[h][w] == '.' && map[h+1][w] == '.' && map[h+1][w+1] == '.' && w+1<W && h+1<H)
     {
         map[h][w] = map[h+1][w] = map[h+1][w+1] = '#';
         ret += rec_ans(h,w);
         map[h][w] = map[h+1][w] = map[h+1][w+1] = '.';
     }
-    if(w!=0 && map[h][w] == '.' && map[h+1][w] == '.' && map[h+1][w-1] == '.')
+    if(w!=0 && map[h][w] == '.' && map[h+1][w] == '.' && map[h+1][w-1] == '.' && h+1<H)
     {
         map[h][w] = map[h+1][w] = map[h+1][w-1] = '#';
         ret += rec_ans(h,w);
