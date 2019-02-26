@@ -47,7 +47,10 @@ int main()
             if(check_ans == 0)
                 known_ans = pressed;
         }
-        printf("%d\n",known_ans);
+        if(known_ans == 1234567890)
+            puts("-1");
+        else
+            printf("%d\n",known_ans);
     }
     return 0;
 }
