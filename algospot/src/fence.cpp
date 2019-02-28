@@ -23,12 +23,12 @@ int maxFence(int start,int end)
     while(right-left<end-start)
     {
         //printf("for : %d %d -> %d\n",left,right,max_fence);
-        if(F[left-1] <= F[right+1] && right<end)
+        if(left == start || (right<end && F[left-1] <= F[right+1]))
         {
             min_height = min(min_height,F[++right]);
             max_fence = max(max_fence,min_height*(right-left+1));
         }
-        else if(left>start)
+        else
         {
             min_height = min(min_height,F[--left]);
             max_fence = max(max_fence,min_height*(right-left+1));
