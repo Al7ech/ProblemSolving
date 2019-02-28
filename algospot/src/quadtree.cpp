@@ -31,6 +31,7 @@ public:
             child[0]->print();
             child[1]->print();
         }
+        delete this;
     }
 };
 
@@ -48,8 +49,8 @@ int main()
         QuadTree::const_index = 0;
         char Q[1500];
         scanf("%s",Q);
-        QuadTree root(Q);
-        root.print();
+        QuadTree *root = new QuadTree(Q);
+        root->print();
         puts("");
     }
 
