@@ -20,18 +20,18 @@ int maxFence(int start,int end)
     int min_height = min(F[m],F[m+1]);
     int max_fence = min_height*2;
     int left = m,right = m+1;
-    for(int i=0;i<end-start-2;i++)
+    while(right-left<end-start)
     {
         //printf("for : %d %d -> %d\n",left,right,max_fence);
-        if(F[left-1] < F[right+1] && right<N-1)
+        if(F[left-1] <= F[right+1] && right<end)
         {
             min_height = min(min_height,F[++right]);
-            max_fence = max(max_fence,min_height*(i+3));
+            max_fence = max(max_fence,min_height*(right-left+1));
         }
-        else if(left>1)
+        else if(left>start)
         {
             min_height = min(min_height,F[--left]);
-            max_fence = max(max_fence,min_height*(i+3));
+            max_fence = max(max_fence,min_height*(right-left+1));
         }
         
     }
