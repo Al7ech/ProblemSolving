@@ -26,8 +26,8 @@ int main()
             memset(D,0,sizeof(D));
             cin >> F;
             int Wlen = strlen(W),Flen = F.length();
-            if(W[0] == '*') memset(D[0],1,sizeof(D[0]));
-            else D[0][1] = (F[0] == '?' || F[0] == W[0]);
+            if(W[0] == '*') memset(D[0],1,4*(Flen+1));
+            else D[0][1] = (W[0] == '?' || F[0] == W[0]);
             for(int j=1;j<Wlen;j++)
             {
                 for(int k=0;k<Flen+1;k++)
