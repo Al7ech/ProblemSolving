@@ -2,7 +2,7 @@
 #include <vector>
 #include <utility>
 #include <algorithm>
-#include <string>
+#include <string.h>
 #include <iostream>
 
 using namespace std;
@@ -35,7 +35,7 @@ int main()
             for(int j=0;j<N;j++)
                 scanf("%d",&map[i][j]);
         
-        printf("%s",able(0,0)?"YES":"NO");
+        printf("%s\n",able(0,0)?"YES":"NO");
     }
     return 0;
 }
