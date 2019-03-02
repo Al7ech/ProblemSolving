@@ -36,6 +36,7 @@ int main()
                 scanf("%d",&map[i][j]);
         
         printf("%s\n",able(0,0)?"YES":"NO");
+        
     }
     return 0;
 }
