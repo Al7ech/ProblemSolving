@@ -8,7 +8,7 @@
 
 using namespace std;
 
-int C,N;
+int C,N,ans;
 
 int T[100000];
 int D[100000];
@@ -38,7 +38,10 @@ int main()
 
         for(int i=0;i<N;i++) scanf("%d",&T[i]);
 
-        printf("%d\n",lis(0));
+        for(int i=0;i<N;i++) ans = max(ans,lis(i));
+
+        printf("%d\n",ans);
+
     }
     return 0;
 }
