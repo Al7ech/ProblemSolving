@@ -33,6 +33,7 @@ int main()
     scanf("%d",&C);
     for(int t=0;t<C;t++)
     {
+        ans = 0;
         scanf("%d",&N);
         memset(D,0,sizeof(D));
 
