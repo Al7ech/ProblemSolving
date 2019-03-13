@@ -5,9 +5,7 @@
 #include <algorithm>
 #include <string.h>
 #include <iostream>
-
 using namespace std;
-
 typedef long long ll;
 
 const ll MOD = 1000000007;
