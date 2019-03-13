@@ -17,6 +17,7 @@ int main()
     {
         R.clear();
         K.clear();
+        
         scanf("%d",&N);
         for(int i=0;i<N;i++)
         {
@@ -30,24 +31,18 @@ int main()
             scanf("%d",&x);
             K.push_back(x);
         }
+        sort(R.begin(),R.end());
+        reverse(R.begin(),R.end());
         sort(K.begin(),K.end());
-
-        int cnt=0;
-        for(int i=0;i<N;i++)
+        reverse(K.begin(),K.end());
+        
+        while(!K.empty())
         {
-            int val;
-            val = R[i];
-            int idx = lower_bound(K.begin(),K.end(),val)-K.begin();
-
-            if(idx >= N)
-                continue;
-            if(K[idx] >= val)
-            {
-                cnt++;
-                K.erase(idx+K.begin());
-            }
+            if(K.back() >= R.back())
+                R.pop_back();
+            K.pop_back();
         }
-        printf("%d\n",cnt);
+        printf("%d\n",N-(int)R.size());
     }
     return 0;
 }
