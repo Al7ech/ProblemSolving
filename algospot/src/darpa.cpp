@@ -31,7 +31,6 @@ bool able(int val)
 
 int main()
 {
-    
     scanf("%d",&C);
     for(int t=0;t<C;t++)
     {
@@ -41,7 +40,7 @@ int main()
         {
             float x;
             scanf("%f",&x);
-            X.push_back((int)(x*100));
+            X.push_back((int)(x*100+0.5));
         }
 
         int min_len = 0;
