@@ -76,7 +76,7 @@ int main()
         for(int i=0;i<N;i++) for(int j=0;j<N;j++) len_sq[i][j] = sq(i,j);
         for(int i=0;i<N;i++) for(int j=0;j<N;j++) max_dir = max(max_dir,len_sq[i][j]);
 
-        for(int i=0;i<100;i++)
+        for(int i=0;i<150;i++)
         {
             double mid_dir = (min_dir + max_dir) / 2.0;
             
