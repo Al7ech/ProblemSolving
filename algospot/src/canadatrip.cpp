@@ -24,9 +24,14 @@ ll count(int x)
     ll ret = 0;
     for(city C: D)
     {
-        ret += max(0,min(C.M/C.G,(x-(C.L-C.M))/C.G) + 1);
+        if(x<C.L-C.M)
+            ret += 0;
+        else if(x<C.L)
+            ret += (x-(C.L-C.M))/C.G + 1;
+        else
+            ret += C.M/C.G + 1;
     }
-    return ret;
+    return ret; 
 }
 
 int main()
