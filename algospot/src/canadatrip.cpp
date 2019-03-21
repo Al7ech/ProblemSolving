@@ -19,9 +19,9 @@ int T;
 int N,K;
 vector<city> D;
 
-int count(int x)
+ll count(int x)
 {
-    int ret = 0;
+    ll ret = 0;
     for(city C: D)
     {
         ret += max(0,min(C.M/C.G,(x-(C.L-C.M))/C.G) + 1);
@@ -50,7 +50,7 @@ int main()
         while(min_x < max_x)
         {
             int mid_x = (min_x + max_x) / 2;
-            if(count(mid_x) >= K) max_x = mid_x;
+            if(count(mid_x) >= (ll)K) max_x = mid_x;
             else min_x = mid_x + 1;
         }
 
