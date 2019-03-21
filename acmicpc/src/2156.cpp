@@ -29,7 +29,7 @@ int ans(int idx,bool nextable)
         return ret = P[idx];
 
     if(nextable)
-        return ret = max(ans(idx-2,0) , ans(idx-2,1)) + P[idx];
+        return ret = max( max(ans(idx-2,0),ans(idx-3,0)) , ans(idx-2,1)) + P[idx];
     else
         return ret = ans(idx-1,1) + P[idx];
 }
@@ -44,7 +44,7 @@ int main()
 
     int A = max(ans(N-1,0),ans(N-1,1));
     if(N!=1)
-        A = max(A,max(ans(N-2,0),ans(N-2,1)));
+        A = max(A,ans(N-2,0));
     
     printf("%d\n",A);
 
