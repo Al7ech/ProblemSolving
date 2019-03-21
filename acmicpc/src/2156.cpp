@@ -1,27 +1,51 @@
-#include<stdio.h>
+#include <stdio.h>
+#include <string>
+#include <vector>
+#include <utility>
+#include <algorithm>
+#include <string.h>
+#include <iostream>
+#include <math.h>
+#include <queue>
+using namespace std;
+typedef long long ll;
 
-int n;
-int val[10000];
-int d[10000][3];
+int P[10001];
+int D[10001][2];
 
-int max(int a,int b)
+int N;
+
+int ans(int idx,bool nextable)
 {
-    if(a>b) return a;
-    return b;
+    int &ret = D[idx][nextable];
+
+    if(ret != -1)
+        return ret;
+
+    if(idx == 0)
+        return ret = P[idx];
+
+    if(nextable)
+        return ret = max(ans(idx-2,0) , ans(idx-2,1)) + P[idx];
+    else
+        return ret = ans(idx-1,1) + P[idx];
 }
 
-int main(void)
+int main()
 {
-    scanf("%d",&n);
-    for(int i=0;i<n;i++)scanf("%d",&val[i]);
-    d[0][1] = val[0];
-    d[1][1] = val[1];
-    for(int i=0;i<=n;i++)
-    {
-        if(i>0) d[i][2] = d[i-1][1] + val[i];
-        if(i>1) d[i][1] = d[i-2][0] + val[i];
-        d[i][0] = max(d[i][1],d[i][2]);
-    }
-    printf("%d", max(d[n][0],d[n-1][0]);
+    scanf("%d",&N);
+
+    memset(D,-1,sizeof(D));
+
+    for(int i=0;i<N;i++) scanf("%d",P+i);
+
+    printf("%d\n",max(
+                    max(
+                        max(ans(N-1,0),ans(N-1,1))
+                        ,ans(N-2,0)
+                    ),
+                    ans(N-2,1)
+                ));
+
     return 0;
 }
