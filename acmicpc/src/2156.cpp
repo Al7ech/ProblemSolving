@@ -25,6 +25,9 @@ int ans(int idx,bool nextable)
     if(idx == 0)
         return ret = P[idx];
 
+    if(idx == 1 && nextable)
+        return ret = P[idx];
+
     if(nextable)
         return ret = max(ans(idx-2,0) , ans(idx-2,1)) + P[idx];
     else
@@ -39,13 +42,11 @@ int main()
 
     for(int i=0;i<N;i++) scanf("%d",P+i);
 
-    printf("%d\n",max(
-                    max(
-                        max(ans(N-1,0),ans(N-1,1))
-                        ,ans(N-2,0)
-                    ),
-                    ans(N-2,1)
-                ));
+    int A = max(ans(N-1,0),ans(N-1,1));
+    if(N!=1)
+        A = max(A,max(ans(N-2,0),ans(N-2,1)));
+    
+    printf("%d\n",A);
 
     return 0;
 }
