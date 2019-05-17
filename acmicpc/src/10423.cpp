@@ -9,30 +9,84 @@
 using namespace std;
 typedef long long ll;
 
-int N, K;
+typedef struct edge
+{
+    edge(int U, int V, int W)
+    {
+        u = U, v = V, w = W;
+    }
+    int u, v, w;
+} Edge;
+int N, M, K;
+int parent[1005];
+vector<Edge> E;
 
-int idx[10001];
-int ans = 0;
+bool comp(Edge a, Edge b)
+{
+    if (a.w == b.w)
+    {
+        if (a.u == b.u)
+            return a.v < b.v;
+        return a.u < b.u;
+    }
+    return a.w > b.w;
+}
+
+int find(int idx)
+{
+    if (idx < 0 || parent[idx] == idx)
+        return idx;
+    else
+        return parent[idx] = find(parent[idx]);
+}
+
+void uni(int a, int b)
+{
+    int apar = find(a);
+    int bpar = find(b);
+    if (apar < 0)
+        parent[bpar] = apar;
+    else
+        parent[apar] = bpar;
+}
 
 int main()
 {
-    scanf("%d\n%d", &N, &K);
+    scanf("%d %d %d", &N, &M, &K);
+
+    // init parents
     for (int i = 0; i < N; i++)
-        scanf("%d", idx + i);
+        parent[i] = i;
+    for (int i = 0; i < K; i++)
+    {
+        int idx;
+        scanf("%d", &idx);
+        parent[idx] = -idx;
+    }
+    // inputs
+    for (int i = 0; i < M; i++)
+    {
+        int u, v, w;
+        scanf("%d %d %d", &u, &v, &w);
+        Edge e(u, v, w);
+        E.push_back(e);
+    }
+    sort(E.begin(), E.end(), comp);
 
-    sort(idx, idx + N);
-    ans = idx[N - 1] - idx[0];
+    ll sum = 0;
 
-    for (int i = 1; i < N; i++)
-        idx[i - 1] = idx[i] - idx[i - 1];
+    for (int i = 0; i < N - K;)
+    {
+        Edge e = E.back();
+        E.pop_back();
+        if (find(e.u) < 0 && find(e.v) < 0)
+            continue;
+        uni(e.u, e.v);
+        i++;
+        sum += e.w;
+    }
 
-    sort(idx, idx + N - 1);
-    reverse(idx, idx + N - 1);
+    printf("%lld\n", sum);
 
-    int loop = min(K - 1, N - 1);
-    for (int i = 0; i < loop; i++)
-        ans -= idx[i];
-
-    printf("%d\n", ans);
     return 0;
 }
