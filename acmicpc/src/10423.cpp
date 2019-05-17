@@ -79,7 +79,10 @@ int main()
     {
         Edge e = E.back();
         E.pop_back();
-        if (find(e.u) < 0 && find(e.v) < 0)
+        // printf("%d %d %d / %d\n",e.u,e.v,e.w, sum);
+        int upar = find(e.u);
+        int vpar = find(e.v);
+        if ((upar < 0 && vpar < 0)|| upar == vpar)
             continue;
         uni(e.u, e.v);
         i++;
