@@ -23,13 +23,13 @@ ll get_ans(int s, int e)
     {
         if(H[l-1] < H[r+1])
         {
-            l--;
-            height = min(height, H[l]);
+            r++;
+            height = min(height, H[r]);
         }
         else
         {
-            r++;
-            height = min(height, H[r]);
+            l--;
+            height = min(height, H[l]);
         }
         ret = max(ret, (ll)(r-l + 1) * height);
     }
