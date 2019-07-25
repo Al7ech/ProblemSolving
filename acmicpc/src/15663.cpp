@@ -1,72 +1,63 @@
 #include <stdio.h>
 #include <vector>
 #include <algorithm>
-#include <cmath>
 
 using namespace std;
 
 int N,M;
-int visit[10];
 int value[10];
-char dup[17000000];
+int cnt[20000];
 vector<int> V;
-
-int calc()
-{
-    int ret = 0;
-    for(int i=0;i<M;i++)
-        ret+= (V[i]-1) << 3*i;
-
-    return ret;
-}
 
 void dfs(int idx,int depth)
 {
     V.push_back(idx);
-    visit[idx] = 1;
+    cnt[value[idx]]--;
 
     if(depth == M)
     {
-        printf("%d %d\n",idx,calc());
-        dup[calc()] = 1;
+        for(int i:V)
+        {
+            printf("%d ",value[i]);
+        }
+        puts("");
     }
     else
     {
-        for(int i=1;i<=N;i++)
+        int prev = -1;
+
+        for(int i=0;i<N;i++)
         {
-            if(!visit[i])
+            if(cnt[value[i]] && prev != value[i])
+            {
                 dfs(i,depth+1);
-        }
+                prev = value[i];
+            }
+        }   
     }
 
     V.pop_back();
-    visit[idx] = 0;
+    cnt[value[idx]]++;
 }
 
 int main(void)
 {
     scanf("%d %d",&N,&M);
     for(int i=0;i<N;i++)
+    {
         scanf("%d",value+i);
+        cnt[value[i]]++;
+    }
     sort(value,value+N);
 
-    for(int i=1;i<=N;i++)
-        dfs(i,1);
+    vector<int> visit(10005,0);
 
-    int len = (int)(pow(N,M)+0.5);
-
-    for(int i=0;i<len;i++)
+    for(int i=0;i<N;i++)
     {
-        if(dup[i])
+        if(!visit[value[i]])
         {
-            printf("PA : %d\n",i);
-            int tmp = i;
-            for(int j=0;j<M;j++)
-            {
-                printf("%d ",value[tmp%8]);
-                tmp >>= 3;
-            }
-            puts("");
+            visit[value[i]] = 1;
+            dfs(i,1);
         }
     }
 
