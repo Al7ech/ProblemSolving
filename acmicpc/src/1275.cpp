@@ -4,7 +4,6 @@
 typedef long long ll;
 using namespace std;
 
-ll ans;
 int N, Q;
 int arr[100001];
 vector<ll> t;
@@ -56,6 +55,13 @@ int main(void)
         int x, y, a, b;
         scanf("%d%d%d%d", &x, &y, &a, &b);
         x--, y--, a--;
+
+        if (x > y)
+        {
+            x ^= y;
+            y ^= x;
+            x ^= y;
+        }
 
         printf("%lld\n", query(1, 0, N - 1, x, y));
         update(1, 0, N - 1, a, b - arr[a]);
