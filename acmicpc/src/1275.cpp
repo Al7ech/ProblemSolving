@@ -5,7 +5,7 @@ typedef long long ll;
 using namespace std;
 
 int N, Q;
-int arr[100001];
+ll arr[100001];
 vector<ll> t;
 
 ll init(int node, int s, int e)
@@ -29,7 +29,7 @@ ll query(int node, int s, int e, int a, int b)
     return query(node * 2, s, m, a, b) + query(node * 2 + 1, m + 1, e, a, b);
 }
 
-void update(int node, int s, int e, int idx, int diff)
+void update(int node, int s, int e, int idx, ll diff)
 {
     if (idx < s || e < idx)
         return;
@@ -46,14 +46,15 @@ int main(void)
     scanf("%d%d", &N, &Q);
     t = vector<ll>(N * 4, 0);
     for (int i = 0; i < N; i++)
-        scanf("%d", arr + i);
+        scanf("%lld", arr + i);
 
     init(1, 0, N - 1);
 
     for (int i = 0; i < Q; i++)
     {
-        int x, y, a, b;
-        scanf("%d%d%d%d", &x, &y, &a, &b);
+        int x, y, a;
+        ll b;
+        scanf("%d%d%d%lld", &x, &y, &a, &b);
         x--, y--, a--;
 
         if (x > y)
