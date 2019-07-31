@@ -20,11 +20,18 @@ int main(void)
     for (int i = 0; i < N; i++)
     {
         t = *s.begin();
+        // printf("%lld\n", t);
         s.erase(t);
 
         for (int j = 0; j < K; j++)
+        {
             if (t * A[j] < ((ll)1 << 31))
+            {
                 s.insert(t * A[j]);
+                if (s.size() > N)
+                    s.erase(*s.rbegin());
+            }
+        }
     }
     printf("%lld\n", t);
 
