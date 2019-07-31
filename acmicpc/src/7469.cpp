@@ -4,14 +4,12 @@
 
 using namespace std;
 
-int N, M;
+int N, Q;
 int A[100005];
 vector<vector<int>> t;
 
 vector<int> init(int node, int s, int e)
 {
-    // printf("%d %d %d\n", node, s, e);
-
     if (s == e)
         return t[node] = vector<int>(1, A[s]);
 
@@ -27,44 +25,45 @@ vector<int> init(int node, int s, int e)
 }
 
 int I, J, K;
-vector<int> query(int node, int s, int e)
+int L, R, M;
+
+int query(int node, int s, int e)
 {
     if (e < I || J < s)
-        return vector<int>(0);
+        return 0;
 
     if (I <= s && e <= J)
-        return t[node];
+        return upper_bound(t[node].begin(), t[node].end(), M) - t[node].begin();
 
     int m = (s + e) / 2;
-    vector<int> l = query(node * 2, s, m), r = query(node * 2 + 1, m + 1, e);
-    vector<int> tmp(l.size() + r.size());
 
-    merge(l.begin(), l.end(), r.begin(), r.end(), tmp.begin());
-
-    // printf("\n%d %d %d\n", node, s, e);
-
-    // for (int i : vector<int>(tmp.begin(), tmp.end()))
-    //     printf("%d ", i);
-    // puts(" }");
-
-    return vector<int>(tmp.begin(), min(tmp.end(), tmp.begin() + e - s + 1));
+    return query(node * 2, s, m) + query(node * 2 + 1, m + 1, e);
 }
 
 int main(void)
 {
-    scanf("%d%d", &N, &M);
+    scanf("%d%d", &N, &Q);
     for (int i = 0; i < N; i++)
         scanf("%d", A + i);
 
     t = vector<vector<int>>(4 * N);
     init(1, 0, N - 1);
 
-    for (int i = 0; i < M; i++)
+    for (int i = 0; i < Q; i++)
     {
         scanf("%d%d%d", &I, &J, &K);
         I--, J--;
+        L = -1e9, R = 1e9;
 
-        printf("%d\n", query(1, 0, N - 1)[K - 1]);
+        while (L < R)
+        {
+            M = (L + R) / 2;
+            if (query(1, 0, N - 1) < K)
+                L = M + 1;
+            else
+                R = M;
+        }
+        printf("%d\n", L);
     }
 
     return 0;
