@@ -58,13 +58,13 @@ int main(void)
         I--, J--;
         L = -1e9, R = 1e9;
 
-        while (L < R)
+        while (L <= R)
         {
             M = (L + R) / 2;
             if (query(1, 0, N - 1) < K)
                 L = M + 1;
             else
-                R = M;
+                R = M - 1;
         }
         printf("%d\n", L);
     }
