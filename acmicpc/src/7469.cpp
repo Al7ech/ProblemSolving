@@ -8,20 +8,23 @@ int N, Q;
 int A[100005];
 vector<vector<int>> t;
 
-vector<int> init(int node, int s, int e)
+void init(int node, int s, int e)
 {
     if (s == e)
-        return t[node] = vector<int>(1, A[s]);
+    {
+        t[node] = vector<int>(1, A[s]);
+        return;
+    }
 
     int m = (s + e) / 2;
     t[node] = vector<int>(e - s + 1);
 
-    vector<int> l = init(node * 2, s, m);
-    vector<int> r = init(node * 2 + 1, m + 1, e);
+    init(node * 2, s, m);
+    init(node * 2 + 1, m + 1, e);
 
-    merge(l.begin(), l.end(), r.begin(), r.end(), t[node].begin());
+    merge(t[node * 2].begin(), t[node * 2].end(), t[node * 2 + 1].begin(), t[node * 2 + 1].end(), t[node].begin());
 
-    return t[node];
+    return;
 }
 
 int I, J, K;
