@@ -1,58 +1,51 @@
 #include <stdio.h>
 
 int l, r;
-bool end, honest;
+bool end;
+bool dishonest;
 
 int main(void)
 {
     while (1)
     {
-        char a[10], b[10];
-        int val;
-
+        dishonest = false;
+        l = 1, r = 10;
         while (1)
         {
-            scanf("%d", &val);
-            if (val == 0)
+            int N;
+            scanf("%d", &N);
+            if (N == 0)
             {
                 end = true;
                 break;
             }
-            honest = true;
 
-            scanf("%s %s", a, b);
-            if (b[0] == 'h')
+            char dec[2][10];
+            scanf("%s %s", dec[0], dec[1]);
+            if (dec[0][0] == 'r')
             {
-                if (val <= l)
-                {
-                    honest = false;
-                    break;
-                }
-                r = val - 1;
-            }
-            else if (b[0] == 'l')
-            {
-                if (r <= val)
-                {
-                    honest = false;
-                    break;
-                }
-                l = val + 1;
+                if (N < l || r < N)
+                    dishonest = true;
+
+                break;
             }
             else
-                break;
+            {
+                if(dec[1][0] == 'h')
+                    r = N-1;
+                else if(dec[1][0] == 'l')
+                    l = N+1;
+                if(r<l)
+                    dishonest = true;
+            }   
         }
-        if (end)
+        if(end)
             break;
-        while (b[0] != 'o')
-        {
-            scanf("%d\n", &val);
-            scanf("%s %s", a, b);
-        }
-        if (honest)
-            puts("Stan may be honest");
-        else
+        if(dishonest)
             puts("Stan is dishonest");
+        else
+            puts("Stan may be honest");
     }
+
     return 0;
 }
